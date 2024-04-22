@@ -1,127 +1,71 @@
-import React, { useState } from "react"
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Vibration,
-    Pressable,
-    Keyboard,
-    FlatList,} from "react-native"
-import ResultImc from "./ResultImc/"
-import styles from "./style"
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, FlatList } from "react-native";
+import styles from "./style";
 
+export default function StudentRegistrationForm() {
+    const [registration, setRegistration] = useState(null);
+    const [name, setName] = useState('');
+    const [average, setAverage] = useState(null);
+    const [studentsList, setStudentsList] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
 
-
-export default function Form(){
-
-
-const [height, setHeight] = useState(null)
-const [weight, setWeight] = useState(null)
-const [messageImc, setMessageImc] = useState("preencha o peso e a altura");
-const [imc, setImc] = useState(null)
-const [textButton, setTextButton] = useState("calcular")
-const [errorMessage, setErrorMessage] = useState(null)
-const [imcList, setImcList] = useState([])
-
-function imcCalculator(){
-    let heightFormat = height.replace(",",".")
-    let totalImc = ((weight/(heightFormat * heightFormat)).toFixed(2))
-    setImcList ((arr) => [...arr, {id: new Date().getTime(), imc:totalImc}])
-    setImc(totalImc)
-}
-
-
-function verificationImc(){
-    if(imc=== null){
-        Vibration.vibrate();
-        setErrorMessage("campo obrigatório*")
+    function addStudent() {
+        if (registration && name && average) {
+            setStudentsList([...studentsList, { registration, name, average }]);
+            setRegistration(null);
+            setName('');
+            setAverage(null);
+            setErrorMessage('');
+        } else {
+            setErrorMessage('Por favor, preencha todos os campos.');
+        }
     }
-}
 
-function validationImc(){
-    if(weight != null && height != null){
-        imcCalculator()
-        setHeight(null)
-        setWeight(null)
-        setMessageImc("Seu imc é igual a:")
-        setTextButton("Calcular Novamente")
-        setErrorMessage(null)
-    }
-    else{
-        verificationImc()
-        setImc(null)
-        setTextButton("Calcular")
-        setMessageImc("preencha o peso e a altura")
-    }
-   
-
-}
-
-
-    return(
-        <View style={styles.formContext}>
-            {imc == null ? 
-                <Pressable onPress={Keyboard.dismiss} style={styles.form}>
-                <Text style={styles.formLabel}>Altura</Text>
-                <Text style={styles.errorMessage}>{errorMessage}</Text>
-                <TextInput
+    return (
+        <View style={styles.container}>
+            <Text style={styles.label}>Matrícula</Text>
+            <TextInput
                 style={styles.input}
-                onChangeText={setHeight}
-                value={height} 
-                placeholder="Ex. 1.75"
+                onChangeText={setRegistration}
+                value={registration}
+                placeholder="Informe a matrícula"
                 keyboardType="numeric"
-                ></TextInput>
-                <Text style={styles.formLabel}>Peso</Text>
-                <Text style={styles.errorMessage}>{errorMessage}</Text>
-                <TextInput
-                style={styles.input}
-                onChangeText={setWeight}
-                value={weight}
-                placeholder="Ex. 75.365"
-                keyboardType="numeric"
-                 ></TextInput>
-                <TouchableOpacity
-                style={styles.ButtonCalculator}
-                onPress={() =>{
-                    validationImc()
-                }}
-                >
-                    <Text style={styles.textbuttonCalculator}>{textButton}</Text>
-                </TouchableOpacity>
-
-            </Pressable>
-            : 
-            <View style={styles.exhibitionResultImc}>
-              <ResultImc messageResultImc={messageImc} resultImc={imc}/>
-              <TouchableOpacity
-                style={styles.ButtonCalculator}
-                onPress={() =>{
-                    validationImc()
-                }}
-                >
-                    <Text style={styles.textbuttonCalculator}>{textButton}</Text>
-                </TouchableOpacity>
-            </View>
-            }
-            <FlatList
-            showsVerticalScrollIndicator={false}
-            style={styles.listImcs}
-            data={imcList.reverse()}
-            renderItem={({item}) =>{
-                return(
-                    <Text style={styles.resultImcItem}>
-                     <Text style={styles.textResultItemList}>Resultado IMC = {item.imc}</Text>
-                    </Text>
-                )
-            }}
-            keyExtractor={(item) =>{
-                item.id
-            }}
             />
+            <Text style={styles.label}>Nome</Text>
+            <TextInput
+                style={styles.input}
+                onChangeText={setName}
+                value={name}
+                placeholder="Informe o nome"
+            />
+            <Text style={styles.label}>Média</Text>
+            <TextInput
+                style={styles.input}
+                onChangeText={setAverage}
+                value={average}
+                placeholder="Informe a média"
+                keyboardType="numeric"
+            />
+            <TouchableOpacity
+                style={styles.button}
+                onPress={addStudent}
+            >
+                <Text style={styles.buttonText}>Adicionar Aluno</Text>
+            </TouchableOpacity>
 
-            
-            
+            {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+
+            <FlatList
+                data={studentsList}
+                renderItem={({ item }) => (
+                    <View style={styles.studentItem}>
+                        <Text>Matrícula: {item.registration}</Text>
+                        <Text>Nome: {item.name}</Text>
+                        <Text>Média: {item.average}</Text>
+                    </View>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+            />
         </View>
     );
 }
