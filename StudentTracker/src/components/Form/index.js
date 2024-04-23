@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useStudentContext } from './StudentContext';
 import styles from './styles';
 
-const Form = ({ navigation }) => {
+const Form = () => {
+  const navigation = useNavigation();
   const { addStudent } = useStudentContext();
   const [registration, setRegistration] = useState('');
   const [name, setName] = useState('');
@@ -20,7 +22,9 @@ const Form = ({ navigation }) => {
       setRegistration('');
       setName('');
       setAverage('');
-      alert('Aluno adicionado com sucesso!');
+      
+      // Navegar para a tela StudentsList após adicionar o aluno
+      navigation.navigate('StudentsList');
     } else {
       alert('Por favor, preencha todos os campos.');
     }
@@ -35,6 +39,7 @@ const Form = ({ navigation }) => {
         onChangeText={setRegistration}
         placeholder="Informe a matrícula"
         keyboardType="numeric"
+        maxLength={8}
       />
       <Text style={styles.label}>Nome</Text>
       <TextInput
@@ -50,15 +55,10 @@ const Form = ({ navigation }) => {
         onChangeText={setAverage}
         placeholder="Informe a média"
         keyboardType="numeric"
+        maxLength={3}
       />
       <TouchableOpacity style={styles.button} onPress={handleAddStudent}>
         <Text style={styles.buttonText}>Adicionar Aluno</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.navigationButton}
-        onPress={() => navigation.navigate('StudentsList')}
-      >
-        <Text style={styles.navigationButtonText}>Ver Alunos Registrados</Text>
       </TouchableOpacity>
     </View>
   );
