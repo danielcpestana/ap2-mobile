@@ -1,56 +1,61 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#ffffff',
-        padding: 20,
-    },
-    label: {
-        fontSize: 18,
-        marginBottom: 5,
-    },
-    input: {
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: 10,
-        paddingHorizontal: 10,
-    },
-    button: {
-        backgroundColor: '#FF0043',
-        borderRadius: 5,
-        paddingVertical: 10,
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    buttonText: {
-        color: '#ffffff',
-        fontSize: 18,
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-    studentItem: {
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        padding: 10,
-        marginBottom: 10,
-    },
-    navigationButton: {
-        backgroundColor: '#007bff',
-        borderRadius: 5,
-        paddingVertical: 10,
-        alignItems: 'center',
-    },
-    navigationButtonText: {
-        color: '#ffffff',
-        fontSize: 18,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    padding: 20,
+    
+  },
+  label: {
+    fontSize: 21,
+    marginBottom: 5,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#4D9CD9',
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 15,
+    backgroundColor: '#929292'
+  },
+  button: {
+    backgroundColor: '#4D9CD9',
+    borderRadius: 5,
+    padding: 10,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  navigationButton: {
+    marginTop: 20,
+    padding: 10,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#CCCCCC',
+    borderRadius: 5,
+  },
+  navigationButtonText: {
+    color: '#007BFF',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  studentItem: {
+    marginBottom: 10,
+  },
+  divider: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#CCCCCC',
+    marginTop: 10,
+  },
 });
 
 export default styles;
