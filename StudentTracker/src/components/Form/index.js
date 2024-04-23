@@ -1,23 +1,26 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, FlatList } from "react-native";
-import styles from "./style";
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import styles from './styles';
 
-export default function StudentRegistrationForm() {
-    const [registration, setRegistration] = useState(null);
+export default function Form({ navigation }) {
+    const [registration, setRegistration] = useState('');
     const [name, setName] = useState('');
-    const [average, setAverage] = useState(null);
+    const [average, setAverage] = useState('');
     const [studentsList, setStudentsList] = useState([]);
-    const [errorMessage, setErrorMessage] = useState('');
 
-    function addStudent() {
+    function handleAddStudent() {
         if (registration && name && average) {
-            setStudentsList([...studentsList, { registration, name, average }]);
-            setRegistration(null);
+            const newStudent = {
+                registration,
+                name,
+                average: parseFloat(average),
+            };
+            setStudentsList([...studentsList, newStudent]);
+            setRegistration('');
             setName('');
-            setAverage(null);
-            setErrorMessage('');
+            setAverage('');
         } else {
-            setErrorMessage('Por favor, preencha todos os campos.');
+            alert('Por favor, preencha todos os campos.');
         }
     }
 
@@ -48,24 +51,16 @@ export default function StudentRegistrationForm() {
             />
             <TouchableOpacity
                 style={styles.button}
-                onPress={addStudent}
+                onPress={handleAddStudent}
             >
                 <Text style={styles.buttonText}>Adicionar Aluno</Text>
             </TouchableOpacity>
-
-            {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
-
-            <FlatList
-                data={studentsList}
-                renderItem={({ item }) => (
-                    <View style={styles.studentItem}>
-                        <Text>Matrícula: {item.registration}</Text>
-                        <Text>Nome: {item.name}</Text>
-                        <Text>Média: {item.average}</Text>
-                    </View>
-                )}
-                keyExtractor={(item, index) => index.toString()}
-            />
+            <TouchableOpacity
+                style={styles.navigationButton}
+                onPress={() => navigation.navigate('StudentsList')}
+            >
+                <Text style={styles.navigationButtonText}>Ver Alunos Registrados</Text>
+            </TouchableOpacity>
         </View>
     );
 }

@@ -1,43 +1,38 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1D1D1D',
+        backgroundColor: '#ffffff',
         padding: 20,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        paddingTop: 30
     },
     label: {
-        fontSize: 20,
+        fontSize: 18,
         marginBottom: 5,
-        color: '#3985CD'
-        
-        
     },
     input: {
         height: 40,
         borderWidth: 1,
-        borderColor: '#4877A2',
+        borderColor: '#ccc',
         borderRadius: 5,
         marginBottom: 10,
         paddingHorizontal: 10,
-        backgroundColor: '#C5C5C5'
     },
     button: {
-        backgroundColor: '#3985CD',
-        borderRadius: 10,
+        backgroundColor: '#FF0043',
+        borderRadius: 5,
         paddingVertical: 10,
         alignItems: 'center',
+        marginBottom: 10,
     },
     buttonText: {
         color: '#ffffff',
         fontSize: 18,
     },
-    errorMessage: {
-        color: 'red',
-        marginTop: 10,
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20,
     },
     studentItem: {
         borderWidth: 1,
@@ -45,8 +40,16 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         marginBottom: 10,
-        marginTop: 10,
-        backgroundColor: '#C5C5C5'
+    },
+    navigationButton: {
+        backgroundColor: '#007bff',
+        borderRadius: 5,
+        paddingVertical: 10,
+        alignItems: 'center',
+    },
+    navigationButtonText: {
+        color: '#ffffff',
+        fontSize: 18,
     },
 });
 
